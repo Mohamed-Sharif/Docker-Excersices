@@ -1,0 +1,14 @@
+FROM maven as build
+
+ENV FILE simple-java-maven-app
+RUN apt-get update && apt install unzip
+
+WORKDIR /app
+ADD https://github.com/jenkins-docs/$FILE/archive/refs/heads/master.zip ./code.zip
+RUN unzip code.zip && mv ./$FILE-master/* . && rm -r code.zip && mvn package
+
+
+FROM openjdk:alpine
+
+COPY --from=build /app/target/my-app-1.0-SNAPSHOT.jar /app.jar
+CMD java -jar /app.jar
