@@ -1,11 +1,19 @@
 version: '3'
 services:
   webServer:
+    image: nginx:alpine
     container_name: myNginx
+    build:
+      context: .
+      args:
+        Hos: /home/myFiles
+        ContainerDir: /usr/share/nginx/html
+    volumes:
+      - ${HostDir}:${ContainerDir}
     ports:
       - "8080:80"
-    image: nginx:alpine
     environment:
       - HOST=mysite.com
-      - PORT=80
-  
+      - PORT=8080
+      - HostDir=/home/myFiles
+      - ContainerDir=/usr/share/nginx/html
