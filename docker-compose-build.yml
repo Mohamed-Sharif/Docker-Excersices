@@ -1,0 +1,8 @@
+version: "3"
+services:
+  built-svc:
+    image: my_mage
+    container_name: myContainer
+    build:
+      context: .
+      dockerfile: Dockerfile
