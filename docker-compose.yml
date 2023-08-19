@@ -1,0 +1,7 @@
+version: '3'
+services:
+  webServer:
+    container_name: myNginx
+    ports:
+      - "8080:80"
+    image: nginx:alpine
