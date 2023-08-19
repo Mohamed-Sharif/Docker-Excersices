@@ -5,3 +5,7 @@ services:
     ports:
       - "8080:80"
     image: nginx:alpine
+    environment:
+      - HOST=mysite.com
+      - PORT=80
+  
