@@ -1,18 +1,16 @@
 version: '3'
 
 services:
-  webServer:
+  myWebServer:
     image: nginx:alpine
     container_name: myNginx
-
     build:
-      context: /root
+      context: /
       args:
         HostDir: /root/myFiles
 
     volumes:
       - /root/myFiles:/usr/share/nginx/html
-      - myVolume:/var
 
     ports:
       - 8080:80
@@ -36,7 +34,6 @@ services:
       - myNetwork
     environment:
       - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_USER=root
     tty: true
 
 volumes:
