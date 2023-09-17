@@ -1,15 +1,10 @@
-name: Docker
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+name: CI cycle
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+      
 
 jobs:
 
@@ -29,14 +24,14 @@ jobs:
 
     - name: Login to Docker Hub
       run: |
-            echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+            echo ${{ secrets.TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME  }} --password-stdin
 
     - name: Tagginf and Pushing Docker Image (latest)
       run: |
-        docker tag myapp:latest ${{ secrets.DOCKER_USERNAME }}/myapp:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+        docker tag ipapp:latest ${{ secrets.DOCKER_USERNAME }}/ipapp:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/ipapp:latest
 
     - name: Tag and Push Docker Image (with timestamp tag)
       run: |
-        docker tag myapp:latest ${{ secrets.DOCKER_USERNAME }}/myapp:${{ env.TAG }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/myapp:${{ env.TAG }}
+        docker tag ipapp:latest ${{ secrets.DOCKER_USERNAME }}/ipapp:${{ env.TAG }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/ipapp:${{ env.TAG }}
