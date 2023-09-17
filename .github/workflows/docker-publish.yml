@@ -20,7 +20,7 @@ jobs:
       run: echo "TAG=V-$(date +%y.%m.%d)" >> $GITHUB_ENV
 
     - name: Building the Docker image
-      run: docker build . --file Dockerfile --tag myapp:latest
+      run: docker build . --file Dockerfile --tag ipapp:latest
 
     - name: Login to Docker Hub
       run: |
