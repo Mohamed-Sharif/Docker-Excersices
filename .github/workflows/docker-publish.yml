@@ -19,12 +19,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
 
     steps:
       - name: Checkout repository
@@ -33,7 +27,7 @@ jobs:
 
     - name: Building the Docker image
       run: docker build . --file Dockerfile --tag myapp:latest
-      
+
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Login to Docker Hub
