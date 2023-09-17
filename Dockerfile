@@ -5,13 +5,13 @@ FROM node:14
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY ./ ./
+COPY /app/package*.json ./
 
 # Install app dependencies
 RUN npm install
 
 # Copy the rest of the application code to the container
-COPY . .
+COPY /app .
 
 # Expose a port (if your app listens on a specific port)
 EXPOSE 3000
