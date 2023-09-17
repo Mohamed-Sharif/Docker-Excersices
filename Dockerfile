@@ -1,13 +1,20 @@
-FROM nginx
+# Use an official Node.js runtime as the base image
+FROM node:14
 
-ENV REPO beginner-html-site-styled
-LABEL maintainer=Mohamed-Sharif
-ARG useruser
-RUN apt-get update && apt-get install -y unzip
+# Set the working directory in the container
+WORKDIR /app
 
-WORKDIR /usr/share/nginx/html/
-ADD https://github.com/mdn/$REPO/archive/gh-pages.zip ./code.zip
-RUN unzip code.zip && mv ./$REPO-gh-pages/*  .
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
 
-RUN rm -r code.zip $REPO-gh-pages/ 
-CMD ["nginx", "-g", "daemon off;"]
+# Install app dependencies
+RUN npm install
+
+# Copy the rest of the application code to the container
+COPY . .
+
+# Expose a port (if your app listens on a specific port)
+EXPOSE 3000
+
+# Specify the command to run your application
+CMD ["node", "app.js"]
